@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NycBankDotnetTest.Data;
+using NycBankDotnetTest.DTOS;
 
 namespace NycBankDotnetTest.Services.ProdutosService
 {
@@ -14,7 +15,11 @@ namespace NycBankDotnetTest.Services.ProdutosService
 
         public async Task<Produto?> BuscarProdutoPorId(int id)
         {
-            var produto = await _context.Produtos.FindAsync(id);
+            var produto = await _context.Produtos
+                .Include(p => p.Categorias)
+                .FirstOrDefaultAsync(p => p.Id == id);
+
+
             if (produto is null)
             {
                 return null;
@@ -22,9 +27,20 @@ namespace NycBankDotnetTest.Services.ProdutosService
             return produto;
         }
 
-        public async Task<List<Produto>?> CadastrarProduto(Produto produto)
+        public async Task<List<Produto>?> CadastrarProduto(ProdutoCreateDto request)
         {
-            _context.Add(produto);
+            var novoProduto = new Produto
+            {
+                Nome = request.Nome,
+                Preco = request.Preco
+            };
+
+            var categorias = request.Categorias.Select(c => new Categoria { Nome = c.Nome, Produtos = new List<Produto> { novoProduto } }).ToList();
+
+
+            novoProduto.Categorias = categorias;
+
+            _context.Produtos.Add(novoProduto);
             await _context.SaveChangesAsync();
             return await _context.Produtos.ToListAsync();
         }
@@ -38,9 +54,17 @@ namespace NycBankDotnetTest.Services.ProdutosService
                 return null;
             }
 
-            produto.Nome = request.Nome;
+            if (request.Nome != string.Empty && request.Nome != produto.Nome)
+            {
+                produto.Nome = request.Nome;
+            }
+            else {
+                produto.Nome = produto.Nome;
+            }
 
             produto.Preco = request.Preco;
+
+            produto.Categorias = request.Categorias;
 
 
             await _context.SaveChangesAsync();
@@ -61,7 +85,10 @@ namespace NycBankDotnetTest.Services.ProdutosService
 
         public async Task<List<Produto>> ListarProdutos()
         {
-            var produtos = await _context.Produtos.ToListAsync();
+            var produtos = await _context.Produtos
+                .Include(p => p.Categorias)
+                .ToListAsync();
+
             return produtos;
         }
     }

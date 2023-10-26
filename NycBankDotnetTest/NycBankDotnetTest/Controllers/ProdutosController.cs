@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using NycBankDotnetTest.DTOS;
 using NycBankDotnetTest.Services.ProdutosService;
 
 namespace NycBankDotnetTest.Controllers
@@ -32,9 +33,9 @@ namespace NycBankDotnetTest.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<List<Produto>>> CadastrarProduto(Produto produto)
+        public async Task<ActionResult<List<Produto>>> CadastrarProduto(ProdutoCreateDto request)
         {
-            var result = await _produtoService.CadastrarProduto(produto);
+            var result = await _produtoService.CadastrarProduto(request);
             return Ok(result);
         }
 

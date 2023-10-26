@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "QbnEzDGqeUp0g08XIN3wQcdZRtmbyxLpejtqjlNtY5g=",
+  "Source": "NycBankDotnetTest",
+  "BasePath": "_content/NycBankDotnetTest",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

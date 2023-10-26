@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NycBankDotnetTest.Services.ProdutosService;
 
-namespace NycBankDotnetTeste.Controllers
+namespace NycBankDotnetTest.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

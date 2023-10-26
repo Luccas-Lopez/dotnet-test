@@ -37,7 +37,7 @@ namespace NycBankDotnetTest.Controllers
         {
             var result = await _produtoService.CadastrarProduto(request);
             return Ok(result);
-        }
+        }        
 
         [HttpPut("{id}")]
         public async Task<ActionResult<List<Produto>>> EditarProduto(int id, Produto request)

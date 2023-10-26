@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using NycBankDotnetTest.Migrations;
 
 namespace NycBankDotnetTest.Data
 {

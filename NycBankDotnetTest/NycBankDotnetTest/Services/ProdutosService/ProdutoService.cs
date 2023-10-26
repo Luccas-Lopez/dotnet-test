@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NycBankDotnetTest.Data;
 using NycBankDotnetTest.DTOS;
+using NycBankDotnetTest.Models;
 
 namespace NycBankDotnetTest.Services.ProdutosService
 {
@@ -32,13 +33,22 @@ namespace NycBankDotnetTest.Services.ProdutosService
             var novoProduto = new Produto
             {
                 Nome = request.Nome,
-                Preco = request.Preco
+                Preco = request.Preco,
+                Categorias = new List<Categoria>()
             };
 
-            var categorias = request.Categorias.Select(c => new Categoria { Nome = c.Nome, Produtos = new List<Produto> { novoProduto } }).ToList();
+            foreach (var categoriaDto in request.Categorias)
+            {
+                var categoria = await _context.Categorias.FirstOrDefaultAsync(c => c.Nome == categoriaDto.Nome);
 
+                if (categoria == null)
+                {
+                    categoria = new Categoria { Nome = categoriaDto.Nome };
+                    _context.Categorias.Add(categoria);
+                }
 
-            novoProduto.Categorias = categorias;
+                novoProduto.Categorias.Add(categoria);
+            }
 
             _context.Produtos.Add(novoProduto);
             await _context.SaveChangesAsync();
@@ -65,7 +75,6 @@ namespace NycBankDotnetTest.Services.ProdutosService
             produto.Preco = request.Preco;
 
             produto.Categorias = request.Categorias;
-
 
             await _context.SaveChangesAsync();
             return await _context.Produtos.ToListAsync();

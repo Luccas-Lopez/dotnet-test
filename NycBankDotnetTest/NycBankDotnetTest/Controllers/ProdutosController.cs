@@ -22,9 +22,10 @@ namespace NycBankDotnetTest.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<List<Produto>>> BuscarProdutoPorId(int id)
+        public async Task<ActionResult<Produto>> BuscarProdutoPorId(int id)
         {
             var produto = await _produtoService.BuscarProdutoPorId(id);
+
             if (produto is null)
             {
                 return NotFound("Este produto não foi encontrado");
@@ -52,7 +53,7 @@ namespace NycBankDotnetTest.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<List<Produto>>> ExlcuirProduto(int id)
+        public async Task<ActionResult<List<Produto>>> ExcluirProduto(int id)
         {
             var result = await _produtoService.ExcluirProduto(id);
             if (result is null)

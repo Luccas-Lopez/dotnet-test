@@ -20,11 +20,11 @@ namespace NycBankDotnetTest.Services.ProdutosService
                 .Include(p => p.Categorias)
                 .FirstOrDefaultAsync(p => p.Id == id);
 
-
             if (produto is null)
             {
                 return null;
             }
+
             return produto;
         }
 
@@ -94,11 +94,7 @@ namespace NycBankDotnetTest.Services.ProdutosService
 
         public async Task<List<Produto>> ListarProdutos()
         {
-            var produtos = await _context.Produtos
-                .Include(p => p.Categorias)
-                .ToListAsync();
-
-            return produtos;
+            return await _context.Produtos.Include(p => p.Categorias).ToListAsync();
         }
     }
 }

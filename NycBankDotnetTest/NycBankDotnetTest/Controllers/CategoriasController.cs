@@ -23,7 +23,7 @@ namespace NycBankDotnetTest.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<List<Categoria>>> BuscarCategoriaPorId(int id)
+        public async Task<ActionResult<Categoria>> BuscarCategoriaPorId(int id)
         {
             var Categoria = await _categoriasService.BuscarCategoriaPorId(id);
             if (Categoria is null)
@@ -53,7 +53,7 @@ namespace NycBankDotnetTest.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<List<Categoria>>> ExlcuirCategoria(int id)
+        public async Task<ActionResult<List<Categoria>>> ExcluirCategoria(int id)
         {
             var result = await _categoriasService.ExcluirCategoria(id);
             if (result is null)

@@ -11,10 +11,12 @@ namespace NycBankDotnetTest.Data
 
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        protected override void OnConfiguring(DbContextOptionsBuilder builder)
         {
-            base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlServer("Server=.\\SQLexpress;Database=produtos_categorias_db;Trusted_Connection=true;TrustServerCertificate=true;");
+            if (!builder.IsConfigured)
+            {
+                builder.UseSqlServer("Server=.\\SQLexpress;Database=produtos_categorias_db;Trusted_Connection=true;TrustServerCertificate=true;");
+            }
         }
 
         public DbSet<Produto> Produtos { get; set; }

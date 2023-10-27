@@ -4,15 +4,8 @@ using System.Threading.Tasks;
 using Castle.Components.DictionaryAdapter.Xml;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using Moq;
-using Newtonsoft.Json;
 using NycBankDotnetTest.Controllers;
-using NycBankDotnetTest.Data;
-using NycBankDotnetTest.DTOS;
-using NycBankDotnetTest.Models;
-using NycBankDotnetTest.Services.ProdutosService;
-using Xunit;
 
 
 namespace UnitTests.ControllersTests.ProdutosControllerTests
@@ -114,7 +107,7 @@ namespace UnitTests.ControllersTests.ProdutosControllerTests
         }
 
         [Fact]
-        public async Task CadastrarProduto_ComCategorias_DeveRetornarListaComNovoProduto()
+        public async Task CadastrarProduto_ComCategorias_DeveRetornarListaComNovoProduto_E_NovaCategoria()
         {
             var produtoServiceMock = new Mock<IProdutoService>();
             var produtosController = new ProdutosController(produtoServiceMock.Object);

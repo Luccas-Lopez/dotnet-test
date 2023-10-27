@@ -11,7 +11,7 @@ using NycBankDotnetTest.Data;
 namespace NycBankDotnetTest.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20231026012745_Tabela de Produtos")]
+    [Migration("20231026012745_TabeladeProdutos")]
     partial class TabeladeProdutos
     {
         /// <inheritdoc />
